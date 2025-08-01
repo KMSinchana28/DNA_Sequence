@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DNA of the Dead - Opening</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+ body {
+  min-height: 100vh;
+  background-image: url('open.jpg');
+  background-size: cover;
+  font-family: 'Share Tech Mono', monospace;
+  color: #00e6ac;
+  letter-spacing: 0.02em;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+.intro-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.horror-title {
+  font-family: 'Creepster', cursive;
+  font-size: 3em;
+  color: #40da3dff;
+  text-shadow: 0 0 8px #163124ff, 0 0 16px #007fff;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: rgba(0,0,0,0.5);
+  border: 2px solid #00ff7f;
+  border-radius: 14px;
+  padding: 20px;
+  max-width: 480px;
+  width: 100%;
+  color: #e0e6f0;
+  font-size: 1.05em;
+  margin-bottom: 20px;
+  overflow-y: auto;
+  box-shadow: 0 0 12px rgba(0, 255, 127, 0.08);
+}
+
+
+.story-card { height: 120px; }
+.algo-section { height: 120px; border-color: #007fff; }
+.howto-section { height: 125px; border-color: #007fff; }
+
+.card::-webkit-scrollbar {
+  width: 6px;
+}
+.card::-webkit-scrollbar-track {
+  background: #10141d;
+}
+.card::-webkit-scrollbar-thumb {
+  background: #00ff7f;
+  border-radius: 6px;
+}
+.begin-btn {
+  margin-top: 24px;
+  padding: 14px 32px;
+  font-size: 1.1em;
+  font-family: 'Share Tech Mono', monospace;
+  color: #0d0d14;
+  background: linear-gradient(90deg, #00ff7f, #007fff);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 0 10px #00ff7f, 0 0 6px #007fff;
+  transition: transform 0.2s ease;
+  animation: btnPulse 1.8s infinite alternate;
+}
+
+.begin-btn:hover {
+  transform: scale(1.05);
+}
+
+@keyframes btnPulse {
+  0% { box-shadow: 0 0 10px #00ff7f, 0 0 4px #007fff; }
+  100% { box-shadow: 0 0 20px #007fff, 0 0 10px #00ff7f; }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .horror-title {
+    font-size: 2.2em;
+  }
+
+  .card {
+    padding: 16px;
+    max-width: 95vw;
+  }
+
+  .begin-btn {
+    padding: 12px 20vw;
+    font-size: 1em;
+  }
+}
+
+</style>
+
+</head>
+<body>
+  <div class="intro-container">
+    <div class="horror-title">DNA of the Dead</div>
+    <div class="story-card card">
+      A chilling silence fills the lab. A blood-stained DNA sample was found at the scene of a grisly crime. Only you can unravel the genetic code and reveal the truth hidden in the darkness. Will you catch the killer, or will the dead remain unavenged?
+    </div>
+    <div class="algo-section card">
+      <b>Algorithm:</b> This game uses the Smith–Waterman algorithm, a powerful technique in bioinformatics for local DNA sequence alignment.
+
+In forensic analysis, matching DNA samples accurately is critical. The Smith–Waterman algorithm is designed to find the most similar region between two sequences — such as a crime scene DNA sample and the DNA of potential suspects.
+
+Here's how it works in context:
+
+🧪 DNA Input: The game takes the DNA sequence found at the crime scene.
+
+🔍 Comparison: It compares this sequence against DNA data from multiple suspects.
+
+📊 Scoring: The algorithm scores each alignment based on how closely it matches, considering insertions, deletions, and substitutions.
+
+✅ Best Match: The suspect whose DNA region aligns best with the crime scene sample is highlighted — potentially identifying the perpetrator.
+
+This method mirrors real-world DNA profiling used in forensic labs. It's not just guesswork — it's biological detective work, simulating how forensic scientists catch criminals by matching their genetic fingerprints.
+    </div>
+    <div class="howto-section card">
+      <b>How to Play:</b>
+      <ul>
+        <li>Input the DNA sample you found at the crime scene.</li>
+        <li>Analyze the sample to compare it with suspects.</li>
+        <li>Review the closest match and suspect details.</li>
+        <li>Take action: arrest or keep investigating.</li>
+      </ul>
+    </div>
+    <a href="index.html" class="begin-btn">Enter Lab</a>
+  </div>
+  <script>
+    const algoSection = document.querySelector('.algo-section');
+    let scrollDirection = 1;
+
+    function autoScrollAlgo() {
+      if (!algoSection) return;
+
+      algoSection.scrollTop += scrollDirection;
+
+      if (algoSection.scrollTop + algoSection.clientHeight >= algoSection.scrollHeight) {
+        scrollDirection = -1;
+      } else if (algoSection.scrollTop <= 0) {
+        scrollDirection = 1;
+      }
+    }
+
+    setInterval(autoScrollAlgo, 40); // Adjust for speed
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smith–Waterman Algorithm Explained</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .sw-container { max-width: 700px; margin: 40px auto; background: #181c24ee; border-radius: 18px; padding: 32px; box-shadow: 0 0 32px #00ff7f44; color: #e0e6f0; }
+    .sw-title { font-size: 2em; color: #00ff7f; margin-bottom: 12px; text-shadow: 0 0 12px #00ff7f; }
+    .sw-desc { margin-bottom: 18px; font-size: 1.1em; }
+    .sw-form input { font-size: 1em; padding: 6px; margin: 0 8px 12px 0; border-radius: 6px; border: 1px solid #00ff7f; background: #222; color: #fff; }
+    .sw-form button { background: linear-gradient(90deg, #00ff7f 0%, #ff003c 100%); color: #fff; border: none; border-radius: 8px; padding: 8px 24px; font-size: 1em; cursor: pointer; margin-bottom: 18px; }
+    .sw-matrix { margin-top: 18px; overflow-x: auto; }
+    .sw-matrix table { border-collapse: collapse; margin: 0 auto; }
+    .sw-matrix th, .sw-matrix td { border: 1px solid #00ff7f; padding: 8px 12px; text-align: center; font-family: 'Share Tech Mono', monospace; font-size: 1em; background: #222; color: #fff; }
+    .sw-matrix .highlight { background: #ff003c88; color: #fff; font-weight: bold; }
+    .sw-step { margin-top: 18px; font-size: 1.08em; color: #ff003c; }
+  </style>
+</head>
+<body>
+  <div class="sw-container">
+    <div class="sw-title">Smith–Waterman Algorithm</div>
+    <div class="sw-desc">
+      The Smith–Waterman algorithm is used for local sequence alignment—finding the best matching region between two DNA, RNA, or protein sequences. It builds a scoring matrix and traces the highest scoring path to reveal the optimal local alignment.<br><br>
+      <b>How it works:</b> Enter two DNA sequences below. The algorithm will fill the matrix step-by-step, showing how scores are calculated and how the best local alignment is found.
+    </div>
+    <form class="sw-form" id="sw-form">
+      <label>Sequence 1: <input type="text" id="seq1" value="ACACACTA" required></label>
+      <label>Sequence 2: <input type="text" id="seq2" value="AGCACACA" required></label>
+      <button type="submit">Align</button>
+    </form>
+    <div style="text-align:center;margin:18px 0;">
+      <button id="next-btn" style="display:none;padding:10px 32px;font-size:1.1em;border-radius:8px;background:linear-gradient(90deg,#00ff7f 0%,#ff003c 100%);color:#fff;border:none;box-shadow:0 0 18px #00ff7f,0 0 8px #ff003c;cursor:pointer;">Next</button>
+    </div>
+    <div class="sw-step" id="sw-step"></div>
+    <div class="sw-matrix" id="sw-matrix"></div>
+  </div>
+  <script>
+    // Smith-Waterman parameters
+    const match = 2, mismatch = -1, gap = -2;
+    function createMatrix(rows, cols) {
+      const matrix = [];
+      for (let i = 0; i < rows; i++) {
+        matrix[i] = Array(cols).fill(0);
+      }
+      return matrix;
+    }
+    function alignSW(seq1, seq2) {
+      const m = seq1.length, n = seq2.length;
+      const matrix = createMatrix(m+1, n+1);
+      let maxScore = 0, maxPos = [0,0];
+      let steps = [];
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          const scoreDiag = matrix[i-1][j-1] + (seq1[i-1] === seq2[j-1] ? match : mismatch);
+          const scoreUp = matrix[i-1][j] + gap;
+          const scoreLeft = matrix[i][j-1] + gap;
+          const score = Math.max(0, scoreDiag, scoreUp, scoreLeft);
+          matrix[i][j] = score;
+          if (score > maxScore) { maxScore = score; maxPos = [i,j]; }
+          steps.push({i, j, score, scoreDiag, scoreUp, scoreLeft});
+        }
+      }
+      return {matrix, steps, maxPos, maxScore};
+    }
+    function renderMatrix(seq1, seq2, matrix, highlightCell) {
+      let html = '<table><tr><th></th><th></th>';
+      for (let j = 0; j < seq2.length; j++) html += `<th>${seq2[j]}</th>`;
+      html += '</tr>';
+      for (let i = 0; i <= seq1.length; i++) {
+        html += '<tr>';
+        html += `<th>${i===0?'':seq1[i-1]}</th>`;
+        for (let j = 0; j <= seq2.length; j++) {
+          const cls = highlightCell && highlightCell[0]===i && highlightCell[1]===j ? 'highlight' : '';
+          html += `<td class="${cls}">${matrix[i][j]}</td>`;
+        }
+        html += '</tr>';
+      }
+      html += '</table>';
+      return html;
+    }
+    function showStep(step, seq1, seq2, matrix) {
+      const {i, j, score, scoreDiag, scoreUp, scoreLeft} = step;
+      let desc = `Calculating cell [${i},${j}] for <b>${seq1[i-1]}</b> vs <b>${seq2[j-1]}</b>:<br>`;
+      desc += `Diagonal: ${scoreDiag}, Up: ${scoreUp}, Left: ${scoreLeft}, Max: <b>${score}</b>`;
+      document.getElementById('sw-step').innerHTML = desc;
+      document.getElementById('sw-matrix').innerHTML = renderMatrix(seq1, seq2, matrix, [i,j]);
+    }
+    document.getElementById('sw-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const seq1 = document.getElementById('seq1').value.trim().toUpperCase();
+      const seq2 = document.getElementById('seq2').value.trim().toUpperCase();
+      const {matrix, steps} = alignSW(seq1, seq2);
+      let stepIdx = 0;
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.style.display = '';
+      function nextStep() {
+        if (stepIdx < steps.length) {
+          showStep(steps[stepIdx], seq1, seq2, matrix);
+          stepIdx++;
+          if (stepIdx >= steps.length) {
+            nextBtn.textContent = 'Show Result';
+          }
+        } else {
+          document.getElementById('sw-step').innerHTML = '<b>Matrix complete! Highest score shows best local alignment.</b>';
+          document.getElementById('sw-matrix').innerHTML = renderMatrix(seq1, seq2, matrix);
+          nextBtn.style.display = 'none';
+        }
+      }
+      nextBtn.onclick = nextStep;
+      nextBtn.textContent = 'Next';
+      nextStep();
+    });
+  </script>
+</body>
+</html>

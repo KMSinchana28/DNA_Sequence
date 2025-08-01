@@ -1,0 +1,330 @@
+/* --- SUSPENSE/CRIMINAL ABOUT PAGE ENHANCEMENTS --- */
+.suspense-bg {
+  min-height: 100vh;
+  width: 100vw;
+  background: radial-gradient(ellipse at 60% 40%, #1a1a22 0%, #0a0a0f 100%),
+    repeating-linear-gradient(135deg, #0a0a0f 0 2px, #181c24 2px 4px);
+  position: relative;
+  overflow: hidden;
+}
+.suspense-card {
+  background: rgba(10, 14, 24, 0.98);
+  border-radius: 22px;
+  border: 3px solid #00fff7;
+  box-shadow: 0 0 48px 12px #ff003c99, 0 0 24px 8px #00fff7cc, 0 0 0 12px #0a0a0f inset;
+  padding: 54px 36px 40px 36px;
+  max-width: 440px;
+  width: 92vw;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+.suspense-title {
+  font-family: 'Creepster', cursive;
+  font-size: 2.8em;
+  color: #00fff7;
+  text-shadow: 0 0 24px #00fff7, 0 0 8px #ff003c, 0 0 2px #fff;
+  margin-bottom: 10px;
+  letter-spacing: 0.09em;
+  animation: suspense-blink 1.3s infinite alternate;
+}
+.suspense-title span {
+  color: #ff003c;
+  text-shadow: 0 0 18px #ff003c, 0 0 6px #00fff7;
+}
+.suspense-desc {
+  font-size: 1.15em;
+  margin-bottom: 18px;
+  color: #bafffa;
+  text-shadow: 0 0 8px #0a0a0f, 0 0 2px #ff003c44;
+}
+.suspense-divider {
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, #00fff7 0%, #ff003c 100%);
+  margin: 18px auto 18px auto;
+  border-radius: 2px;
+  box-shadow: 0 0 8px #00fff7, 0 0 4px #ff003c;
+}
+.suspense-sub {
+  color: #ff003c;
+  font-size: 1.18em;
+  margin: 18px 0 8px 0;
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 8px #ff003c, 0 0 2px #00fff7;
+}
+.suspense-steps {
+  text-align: left;
+  margin: 0 auto 18px auto;
+  padding-left: 1.2em;
+  color: #00fff7;
+  font-size: 1.07em;
+  text-shadow: 0 0 4px #0a0a0f;
+}
+.suspense-steps li {
+  margin-bottom: 8px;
+  line-height: 1.6em;
+}
+.suspense-credits {
+  color: #bafffa;
+  font-size: 1em;
+  margin-bottom: 28px;
+  text-shadow: 0 0 4px #0a0a0f;
+}
+.suspense-credits a {
+  color: #00fff7;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.suspense-credits a:hover {
+  color: #ff003c;
+}
+.suspense-btn {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 20px 48px;
+  font-size: 1.3em;
+  font-family: 'Share Tech Mono', monospace;
+  color: #fff;
+  background: linear-gradient(90deg, #00fff7 0%, #ff003c 100%);
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 0 32px 8px #00fff7, 0 0 16px 4px #ff003c88;
+  text-shadow: 0 0 8px #00fff7, 0 0 2px #ff003c;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  transition: transform 0.18s, box-shadow 0.18s;
+  animation: suspensePulse 1.5s infinite alternate;
+}
+.suspense-btn:hover {
+  transform: scale(1.09);
+  box-shadow: 0 0 48px 16px #ff003c, 0 0 24px 8px #00fff7cc;
+}
+@keyframes suspense-blink {
+  0% { opacity: 1; text-shadow: 0 0 24px #00fff7, 0 0 8px #ff003c, 0 0 2px #fff; }
+  80% { opacity: 0.7; text-shadow: 0 0 12px #00fff7, 0 0 2px #ff003c, 0 0 1px #fff; }
+  100% { opacity: 0.4; text-shadow: 0 0 2px #00fff7, 0 0 0px #ff003c, 0 0 0px #fff; }
+}
+@keyframes suspensePulse {
+  0% {
+    box-shadow: 0 0 32px 8px #00fff7, 0 0 16px 4px #ff003c88;
+  }
+  100% {
+    box-shadow: 0 0 48px 16px #ff003c, 0 0 24px 8px #00fff7cc;
+  }
+}
+.criminal-shadow {
+  position: absolute;
+  left: 50%;
+  top: -60px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(ellipse at center, #000 60%, transparent 100%);
+  opacity: 0.22;
+  filter: blur(8px);
+  transform: translateX(-50%) scaleX(1.5);
+  z-index: 1;
+}
+.suspense-overlay {
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(120deg, transparent, transparent 12px, #ff003c11 16px, transparent 20px),
+    repeating-linear-gradient(60deg, transparent, transparent 18px, #00fff711 22px, transparent 28px);
+  opacity: 0.18;
+  z-index: 3;
+}
+@media (max-width: 600px) {
+  .suspense-card {
+    padding: 28px 4vw 24px 4vw;
+    max-width: 98vw;
+  }
+  .suspense-title {
+    font-size: 1.5em;
+  }
+  .suspense-btn {
+    padding: 14px 12vw;
+    font-size: 1em;
+  }
+}
+/* --- ABOUT PAGE STYLES --- */
+.about-container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 70% 30%, #181c24 0%, #0a0a0f 100%);
+}
+
+.about-card {
+  background: rgba(20, 24, 36, 0.98);
+  border-radius: 22px;
+  border: 3px solid #00fff7;
+  box-shadow: 0 0 32px 8px #00fff7, 0 0 8px 2px #ff003c44;
+  padding: 48px 36px 36px 36px;
+  max-width: 420px;
+  width: 90vw;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.about-title {
+  font-family: 'Creepster', cursive;
+  font-size: 2.7em;
+  color: #00fff7;
+  text-shadow: 0 0 16px #00fff7, 0 0 4px #ff003c;
+  margin-bottom: 10px;
+  letter-spacing: 0.06em;
+}
+.about-title span {
+  color: #ff003c;
+  text-shadow: 0 0 12px #ff003c, 0 0 4px #00fff7;
+}
+.about-desc {
+  font-size: 1.13em;
+  margin-bottom: 18px;
+  color: #bafffa;
+}
+.about-sub {
+  color: #ff003c;
+  font-size: 1.2em;
+  margin: 18px 0 8px 0;
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: 0.04em;
+}
+.about-steps {
+  text-align: left;
+  margin: 0 auto 18px auto;
+  padding-left: 1.2em;
+  color: #00fff7;
+  font-size: 1.05em;
+}
+.about-steps li {
+  margin-bottom: 7px;
+  line-height: 1.5em;
+}
+.about-credits {
+  color: #bafffa;
+  font-size: 1em;
+  margin-bottom: 28px;
+}
+.about-credits a {
+  color: #00fff7;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.about-credits a:hover {
+  color: #ff003c;
+}
+.about-btn {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 18px 44px;
+  font-size: 1.25em;
+  font-family: 'Share Tech Mono', monospace;
+  color: #fff;
+  background: linear-gradient(90deg, #00fff7 0%, #ff003c 100%);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 0 24px 6px #00fff7, 0 0 8px 2px #ff003c88;
+  text-shadow: 0 0 8px #00fff7, 0 0 2px #ff003c;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  transition: transform 0.18s, box-shadow 0.18s;
+  animation: pulseGlow 1.5s infinite alternate;
+}
+.about-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 40px 12px #ff003c, 0 0 16px 4px #00fff7cc;
+}
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 24px 6px #00fff7, 0 0 8px 2px #ff003c88;
+  }
+  100% {
+    box-shadow: 0 0 48px 16px #ff003c, 0 0 24px 8px #00fff7cc;
+  }
+}
+@media (max-width: 600px) {
+  .about-card {
+    padding: 28px 8vw 24px 8vw;
+    max-width: 98vw;
+  }
+  .about-title {
+    font-size: 2em;
+  }
+  .about-btn {
+    padding: 14px 18vw;
+    font-size: 1em;
+  }
+}
+body {
+  background: #181c24;
+  color: #e0e6f0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+.container {
+  max-width: 500px;
+  margin: 60px auto;
+  background: #23283a;
+  border-radius: 12px;
+  box-shadow: 0 0 24px #0ff2, 0 0 4px #0ff8;
+  padding: 32px 24px;
+  text-align: center;
+}
+h1 {
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff8;
+}
+textarea {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #0ff4;
+  background: #1a1e2a;
+  color: #e0e6f0;
+  padding: 12px;
+  font-size: 1.1em;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+button {
+  background: #0ff;
+  color: #181c24;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 28px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 8px #0ff8;
+  transition: background 0.2s, color 0.2s;
+}
+button:hover {
+  background: #0cf;
+  color: #fff;
+}
+#results {
+  margin: 24px 0;
+  background: #1a1e2a;
+  border-radius: 8px;
+  padding: 18px;
+  box-shadow: 0 0 8px #0ff4;
+}
+#actions button {
+  margin: 0 8px;
+}
+#form-warning {
+  color: #ff4a4a;
+  margin-top: 10px;
+  min-height: 20px;
+}

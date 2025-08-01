@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DNA Detective - Crime Scene</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('dna.jpg');
+      background-size: cover;
+      color: #71a88d;
+      font-family: 'Share Tech Mono', monospace;
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .crime-header {
+      font-family: 'Great Vibes', cursive;
+      text-align: center;
+      font-size: 2.5em;
+      font-weight: 900;
+      color: #ffd000;
+      text-shadow: 2px 2px 4px rgba(3, 14, 94, 0.5);
+      letter-spacing: 0.08em;
+      margin: 40px 0 12px;
+    }
+
+    .crime-sub {
+      text-align: center;
+      font-size: 1.2em;
+      color: #1c62a9;
+      letter-spacing: 0.04em;
+      max-width: 440px;
+      margin-bottom: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .suspense-sub {
+      font-family: 'Pacifico', cursive;
+      font-weight: 900;
+      color: #aad835ff;
+      
+    }
+
+    .sub-glow {
+      color: #8db120ff;
+      font-size: 1em;
+      font-weight: 900;
+      margin-top: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    .crime-form-container {
+      background: rgba(5, 0, 14, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 0 24px #00ff7f55, 0 0 8px #007fff55;
+      width: 100%;
+      max-width: 480px;
+      padding: 40px 28px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 32px;
+    }
+
+    .crime-form-label {
+      color: #ffffff;
+      font-size: 1.2em;
+      margin-bottom: 12px;
+      text-shadow: 0 0 6px #00ff7f;
+    }
+
+    .dna-input-wrapper {
+      width: 100%;
+      position: relative;
+    }
+
+    #sample-seq {
+      width: 450px;
+      height:150px;
+      border-radius: 10px;
+      border: 2px solid #00ff7f;
+      background: #1a1e2a;
+      color: #e0e6f0;
+      padding: 16px;
+      font-size: 1.1em;
+      font-family: 'Share Tech Mono', monospace;
+      box-shadow: 0 0 8px #00ff7f55;
+      resize: vertical;
+      min-height: 120px;
+      transition: 0.3s;
+    }
+
+    #sample-seq:focus {
+      border-color: #007fff;
+      box-shadow: 0 0 16px #007fff88;
+      outline: none;
+    }
+
+    .dna-watermark {
+      bottom: 12px;
+      right: 16px;
+      font-size: 0.9em;
+      color: #00ff7f66;
+      pointer-events: none;
+    }
+
+    #dna-form button {
+      margin-top: 16px;
+      background: linear-gradient(90deg, #78c8a0ff, #007fff);
+      color: #0d0d14;
+      border: none;
+      border-radius: 12px;
+      padding: 0.9em 2.5em;
+      font-size: 1.1em;
+      font-family: 'Share Tech Mono', monospace;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    #dna-form button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 28px #ff004f, 0 0 28px #007fff;
+    }
+
+    #form-warning {
+      color: #ff004f;
+      margin-top: 14px;
+      min-height: 24px;
+      text-shadow: 0 0 8px #ff004f;
+      font-size: 1em;
+      text-align: center;
+    }
+
+    .crime-links {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .crime-links a {
+      color: #00ff7f;
+      text-shadow: 0 0 6px #00ff7f;
+      font-size: 1.1em;
+      margin: 0 12px;
+      text-decoration: underline;
+      transition: 0.3s ease;
+    }
+
+    .crime-links a:hover {
+      color: #ff004f;
+      text-shadow: 0 0 12px #ff004f;
+    }
+
+    /* Animations */
+    @keyframes flicker {
+      0%, 100% { filter: brightness(1); }
+      10% { filter: brightness(1.2); }
+      20% { filter: brightness(0.8); }
+      30% { filter: brightness(1.3); }
+      50% { filter: brightness(0.7); }
+      70% { filter: brightness(1.3); }
+      90% { filter: brightness(1.2); }
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes suspenseFade {
+      0% { opacity: 1; }
+      100% { opacity: 0.7; }
+    }
+
+    @media screen and (max-width: 480px) {
+      .crime-header {
+        font-size: 1.8em;
+      }
+
+      .crime-sub {
+        font-size: 1em;
+      }
+
+      .crime-form-container {
+        padding: 28px 20px;
+      }
+
+      #dna-form button {
+        font-size: 1em;
+        padding: 0.8em 2em;
+      }
+    }
+</style>
+
+</head>
+<body>
+    <div class="crime-header">🧬 DNA Detective: Crime Scene</div>
+    <div class="crime-sub suspense-sub">  Silent genes scream the truth     <br><span class="sub-glow"> What hidden story lies within?</span></div>
+    <div class="crime-form-container">
+      <form id="dna-form">
+        <label for="sample-seq" class="crime-form-label">Suspect DNA Input <span class="dna-icon">🧬</span></label>
+        <div class="dna-input-wrapper">
+          <textarea id="sample-seq" rows="4" placeholder="Paste the mysterious sequence here..."></textarea>
+          <span class="dna-watermark">AGCT...</span>
+        </div>
+        <button type="submit">Analyze Sample</button>
+      </form>
+      <div id="form-warning"></div>
+    </div>
+  <div class="crime-links">
+    <a href="about.html">About this project</a>
+  </div>
+  <script src="js/game.js"></script>
+</body>
+</html>
